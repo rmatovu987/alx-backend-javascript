@@ -1,5 +1,10 @@
-export function getResponseFromAPI() {
-  return new Promise((resolve) => {
-    resolve();
-  });
+export default function getResponseFromAPI() {
+  const prom = new Promise(
+    (resolve) => {
+      resolve();
+    },
+    (reject) => {
+      reject();
+    }
+  );
 }
