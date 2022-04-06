@@ -3,8 +3,5 @@ export default function getResponseFromAPI() {
     (resolve) => {
       resolve();
     },
-    (reject) => {
-      reject();
-    }
   );
 }
