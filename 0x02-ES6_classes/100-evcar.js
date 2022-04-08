@@ -6,6 +6,7 @@ export default class EVCar {
     this._motor = motor;
     this._color = color;
     this._range = range;
+    this._clonedCar = new Car();
   }
 
   get brand() {
@@ -45,6 +46,6 @@ export default class EVCar {
   }
 
   cloneCar() {
-    return new Car();
+    return this._clonedCar;
   }
 }
