@@ -1,9 +1,8 @@
 export default class HolbertonCourse {
   constructor(name, length, students) {
     this._name = name;
-    this._length = name;
-    this._students = students;
     this._length = length;
+    this.students = students;
   }
 
   get name() {
