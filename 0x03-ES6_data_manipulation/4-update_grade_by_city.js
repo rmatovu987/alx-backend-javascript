@@ -1,5 +1,9 @@
 export default function updateStudentGradeByCity(students, city, newGrades) {
-  if (!Array.isArray(students) || !Array.isArray(newGrades)) {
+  if (!Array.isArray(newGrades)) {
+    return [];
+  }
+
+  if (!Array.isArray(students)) {
     return [];
   }
 
