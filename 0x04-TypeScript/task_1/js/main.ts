@@ -18,3 +18,22 @@ function printTeacher(firstName:string, lastName:string) {
     return `${firstName[0]}. ${lastName}`;
 }
 
+/* Task 4 */
+export interface StudentClassInterface {
+    firstName : string,
+    lastName : string,
+    workOnHomework() : string,
+    displayName() : string
+}
+
+export class StudentClass implements StudentClassInterface{
+    constructor(public firstName:string, public lastName:string) {}
+
+    workOnHomework() {
+        return 'Currently working';
+    }
+
+    displayName() {
+        return `${this.firstName}`;
+    }
+}
