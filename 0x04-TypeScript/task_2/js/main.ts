@@ -66,3 +66,15 @@ function executeWork(employee: Director | Teacher): string {
         return (employee instanceof Teacher) ? employee.workTeacherTasks() : '';
     }
 }
+
+/* Task 7 */
+type Subjects = 'Math' | 'History';
+
+function teachClass(todayClass : string) : string {
+    if (todayClass === 'Math') {
+        return 'Teaching Math';
+    } else if (todayClass === 'History') {
+        return 'Teaching History';
+    }
+}
+
