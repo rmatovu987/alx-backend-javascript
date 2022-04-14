@@ -1,3 +1,4 @@
+/* Task 5 */
 interface DirectorInterface {
     workFromHome(): string;
 
@@ -32,7 +33,7 @@ class Director implements DirectorInterface {
 
 }
 
-class Teacher implements TeacherInterface{
+class Teacher implements TeacherInterface {
     constructor() {
     }
 
@@ -49,6 +50,19 @@ class Teacher implements TeacherInterface{
     }
 }
 
-function createEmployee(salary : number | string) : Teacher | Director {
+function createEmployee(salary: number | string): Teacher | Director {
     return typeof salary === 'number' && salary < 500 ? new Teacher() : new Director();
+}
+
+/* Task 6 */
+function isDirector(employee: Teacher | Director) {
+    return employee instanceof Director;
+}
+
+function executeWork(employee: Director | Teacher): string {
+    if (isDirector(employee)) {
+        return (employee instanceof Director) ? employee.workDirectorTasks() : '';
+    } else if (!isDirector(employee)) {
+        return (employee instanceof Teacher) ? employee.workTeacherTasks() : '';
+    }
 }
