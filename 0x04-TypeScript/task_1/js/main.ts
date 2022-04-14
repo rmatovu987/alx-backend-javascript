@@ -18,4 +18,3 @@ function printTeacher(firstName:string, lastName:string) {
     return `${firstName[0]}. ${lastName}`;
 }
 
-/* Task 4*/
