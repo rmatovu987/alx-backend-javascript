@@ -20,7 +20,7 @@ class Director implements DirectorInterface {
     }
 
     getCoffeeBreak(): string {
-        return 'Getting a coffrr break';
+        return 'Getting a coffee break';
     }
 
     workDirectorTasks(): string {
