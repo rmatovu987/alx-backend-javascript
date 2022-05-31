@@ -25,13 +25,11 @@ const countStudents = (path) => {
             }
             delete subjects.subject;
             for (const key of Object.keys(subjects)) {
-                if (key !== 'field') {
-                    message = `Number of students in ${key}: ${
-                        subjects[key].length
-                    }. List: ${subjects[key].join(', ')}`;
-                    console.log(message);
-                    messages.push(message);
-                }
+                message = `Number of students in ${key}: ${
+                    subjects[key].length
+                }. List: ${subjects[key].join(', ')}`;
+                console.log(message);
+                messages.push(message);
             }
             res(messages);
         });
