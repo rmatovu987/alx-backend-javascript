@@ -1,10 +1,50 @@
 /* eslint-disable */
 
 const http = require('http');
-const countStudents = require('./3-read_file_async');
+const fs = require("fs");
 
 const port = 1245;
 const path = process.argv[2];
+
+async function countStudents() {
+    const promise = (res, rej) => {
+        fs.readFile(path, 'utf8', (err, dataCollected) => {
+            if (err) {
+                throw new Error('Cannot load the database');
+            }
+            const messages = [];
+            let message;
+            const content = dataCollected.toString().split('\n');
+            let students = content.filter((item) => item);
+            students = students.map((item) => item.split(','));
+            const nStudents = students.length ? students.length - 1 : 0;
+            message = `Number of students: ${nStudents}`;
+            // console.log(message);
+            messages.push(message);
+            const subjects = {};
+            for (const i in students) {
+                if (i !== 0) {
+                    if (!subjects[students[i][3]]) subjects[students[i][3]] = [];
+                    subjects[students[i][3]].push(students[i][0]);
+                }
+            }
+            delete subjects.subject;
+            for (const key of Object.keys(subjects)) {
+                if (key !== 'field') {
+                    message = `Number of students in ${key}: ${
+                        subjects[key].length
+                    }. List: ${subjects[key].join(', ')}`;
+                    // console.log(message);
+                    messages.push(message);
+                }
+            }
+            res(messages);
+        });
+
+    };
+
+    return new Promise(promise);
+}
 
 const app = http.createServer((req, res) => {
     res.statusCode = 200;
@@ -15,8 +55,10 @@ const app = http.createServer((req, res) => {
             .then((data) => {
                 res.write('This is the list of our students\n')
                 data = data.map((item, idx) => {
-                    if (idx !== 1) {
+                    if (idx === 0) {
                         res.write(item + '\n');
+                    } else {
+                        res.write(item + '\n')
                     }
                 })
                 res.end();
