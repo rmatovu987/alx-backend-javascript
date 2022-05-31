@@ -23,7 +23,7 @@ async function countStudents() {
       csStudent,
       sweStudent,
     });
-  } catch {
+  } catch (e) {
     throw new Error('Cannot load the database');
   }
 }
@@ -34,10 +34,7 @@ app.get('/', (req, res) => {
 
 app.get('/students', async (req, res) => {
   await countStudents(path)
-    .then(({
-             csStudent,
-             sweStudent,
-           }) => {
+    .then(({ csStudent, sweStudent }) => {
       const sum = csStudent.length + sweStudent.length;
       const hdr = 'This is the list of our students\n';
       const total = `Number of students: ${sum}\n`;
