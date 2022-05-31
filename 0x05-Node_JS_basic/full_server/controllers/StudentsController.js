@@ -2,7 +2,7 @@ const readDatabase = require('../utils');
 const path = process.argv[2];
 
 class StudentsController {
-  static async getAllStudents(req, res) {
+  static async getAllStudents(request, response) {
     try {
       const csSwe = await readDatabase(path);
       const cs = csSwe.cs;
@@ -11,33 +11,31 @@ class StudentsController {
       const c = `Number of students in CS: ${cs.length}. List: ${cs.toString().split(',').join(', ')}\n`;
       const s = `Number of students in SWE: ${swe.length}. List: ${swe.toString().split(',').join(', ')}\n`;
       const out = hdr + c + s;
-      res.status(200).send(out);
+      response.status(200).send(out);
     } catch (ex) {
-      console.log(ex);
-      res.status(500).send('Cannot load the database');
+      response.status(500).send('Cannot load the database');
     }
   }
 
-  static async getAllStudentsByMajor(req, res) {
+  static async getAllStudentsByMajor(request, response) {
     try {
-      const mjr = req.params;
+      const mjr = request.params;
       if (mjr !== 'CS' && mjr !== 'SWE') {
-        res.status(500).send('Major parameter must be CS or SWE');
+        response.status(500).send('Major parameter must be CS or SWE');
       } else {
         const csSwe = await readDatabase(path);
         const cs = csSwe.cs;
         const swe = csSwe.swe;
         if (mjr === 'CS') {
           const out = `List: ${cs.toString().split(',').join(', ')}`;
-          res.status(200).send(out);
+          response.status(200).send(out);
         } else {
           const out = `List: ${swe.toString().split(',').join(', ')}`;
-          res.status(200).send(out);
+          response.status(200).send(out);
         }
       }
     } catch (ex) {
-      console.log(ex);
-      res.status(500).send('Cannot load the database');
+      response.status(500).send('Cannot load the database');
     }
   }
 }
