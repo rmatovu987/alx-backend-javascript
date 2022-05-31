@@ -1,15 +1,15 @@
-/* eslint-disable */
-
-const http = require('http');
-const fs = require("fs");
+const protocol = require('http');
 
 const host = '127.0.0.1';
 const port = 1245;
 const path = process.argv[2];
+const fds = require('fs');
 
 async function countStudents() {
   try {
-    const csvFile = await fs.promises.readFile(path, {encoding: 'utf8'});
+    const csvFile = await fds.promises.readFile(path, {
+      encoding: 'utf8',
+    });
     const csvData = csvFile.split('\n');
     const csStudent = [];
     const sweStudent = [];
@@ -30,17 +30,14 @@ async function countStudents() {
   }
 }
 
-const app = http.createServer((req, res) => {
+const app = protocol.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     countStudents(path)
-      .then(({
-               csStudent,
-               sweStudent,
-             }) => {
+      .then(({ csStudent, sweStudent }) => {
         const sum = csStudent.length + sweStudent.length;
         res.write('This is the list of our students\n');
         res.write(`Number of students: ${sum}\n`);
