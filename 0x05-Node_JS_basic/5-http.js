@@ -51,8 +51,8 @@ async function countStudents() {
 const app = http.createServer((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    if (req.url === '/') res.end('Hello Holberton School!');
-    if (req.url === '/students') {
+    if (req.url === '/') {res.end('Hello Holberton School!');}
+    else if (req.url === '/students') {
         countStudents(path)
             .then((data) => {
                 res.write('This is the list of our students\n')
