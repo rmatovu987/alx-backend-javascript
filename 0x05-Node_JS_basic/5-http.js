@@ -15,10 +15,8 @@ const app = http.createServer((req, res) => {
             .then((data) => {
                 res.write('This is the list of our students\n')
                 data = data.map((item, idx) => {
-                    if (idx === 0) {
+                    if (idx !== 1) {
                         res.write(item + '\n');
-                    } else {
-                        res.write(item + '\n')
                     }
                 })
                 res.end();
