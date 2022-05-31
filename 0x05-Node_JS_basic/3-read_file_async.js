@@ -10,7 +10,9 @@ const countStudents = (path) => {
             const messages = [];
             let message;
             const content = dataCollected.toString().split('\n');
-            let students = content.filter((item) => item);
+            let students = content.filter((item) =>
+                item !== 'firstname,lastname,age,field'
+            );
             students = students.map((item) => item.split(','));
             const nStudents = students.length ? students.length - 1 : 0;
             message = `Number of students: ${nStudents}`;
@@ -25,11 +27,13 @@ const countStudents = (path) => {
             }
             delete subjects.subject;
             for (const key of Object.keys(subjects)) {
-                message = `Number of students in ${key}: ${
-                    subjects[key].length
-                }. List: ${subjects[key].join(', ')}`;
-                console.log(message);
-                messages.push(message);
+                if(key !== 'undefined') {
+                    message = `Number of students in ${key}: ${
+                        subjects[key].length
+                    }. List: ${subjects[key].join(', ')}`;
+                    console.log(message);
+                    messages.push(message);
+                }
             }
             res(messages);
         });
