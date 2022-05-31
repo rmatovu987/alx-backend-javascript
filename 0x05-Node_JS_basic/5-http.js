@@ -3,6 +3,7 @@
 const http = require('http');
 const fs = require("fs");
 
+const host = '127.0.0.1';
 const port = 1245;
 const path = process.argv[2];
 
@@ -53,6 +54,6 @@ const app = http.createServer((req, res) => {
   }
 });
 
-app.listen(port);
+app.listen(port, host);
 
 module.exports = app;
