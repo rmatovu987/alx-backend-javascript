@@ -6,7 +6,7 @@ const readDatabase = (path) => new Promise((resolve, reject) => {
     const csvData = res.split('\n');
     const csStudent = [];
     const sweStudent = [];
-    for(let i = 1; i < csvData.length - 1; i++) {
+    for (let i = 1; i < csvData.length - 1; i++) {
       const line = csvData[i].split(',');
       if (line[3] === 'CS') {
         csStudent.push(line[0].trim());

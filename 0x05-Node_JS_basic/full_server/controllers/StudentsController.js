@@ -8,14 +8,14 @@ class StudentsController {
       const cs = csSwe.cs;
       const swe = csSwe.swe;
       const hdr = 'This is the list of our students\n';
-      const c = `Number of students in CS: ${cs.length}. List: ${cs.tostring().split(',').join(', ')}\n`;
-      const s = `Number of students in SWE: ${swe.length}. List: ${swe.tostring().split(',').join(', ')}\n`;
+      const c = `Number of students in CS: ${cs.length}. List: ${cs.toString().split(',').join(', ')}\n`;
+      const s = `Number of students in SWE: ${swe.length}. List: ${swe.toString().split(',').join(', ')}\n`;
       const out = hdr + c + s;
       res.status(200).send(out);
     } catch (ex) {
       console.log(ex);
       res.status(500).send('Cannot load the database');
-    }  
+    }
   }
 
   static async getAllStudentsByMajor(req, res) {
@@ -28,13 +28,13 @@ class StudentsController {
         const cs = csSwe.cs;
         const swe = csSwe.swe;
         if (mjr === 'CS') {
-          const out = `List: ${cs.tostring().split(',').join(', ')}`;
+          const out = `List: ${cs.toString().split(',').join(', ')}`;
           res.status(200).send(out);
         } else {
-          const out = `List: ${swe.tostring().split(',').join(', ')}`;
+          const out = `List: ${swe.toString().split(',').join(', ')}`;
           res.status(200).send(out);
+        }
       }
-     }
     } catch (ex) {
       console.log(ex);
       res.status(500).send('Cannot load the database');
