@@ -51,6 +51,8 @@ const app = protocol.createServer((req, res) => {
   }
 });
 
-app.listen(port, host);
+app.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}`);
+});
 
 module.exports = app;
