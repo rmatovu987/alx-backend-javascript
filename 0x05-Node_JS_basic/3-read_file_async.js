@@ -1,45 +1,28 @@
-/* eslint-disable */
-const fs = require('fs');
+const fds = require('fs');
 
-const countStudents = (path) => {
-    const promise = (res, rej) => {
-        fs.readFile(path, 'utf8', (err, dataCollected) => {
-            if (err) {
-                throw new Error('Cannot load the database');
-            }
-            const messages = [];
-            let message;
-            const content = dataCollected.toString().split('\n');
-            let students = content.filter((item) =>
-                item !== 'firstname,lastname,age,field'
-            );
-            students = students.map((item) => item.split(','));
-            const nStudents = students.length ? students.length - 1 : 0;
-            message = `Number of students: ${nStudents}`;
-            console.log(message);
-            messages.push(message);
-            const subjects = {};
-            for (const i in students) {
-                if (i !== 0) {
-                    if (!subjects[students[i][3]]) subjects[students[i][3]] = [];
-                    subjects[students[i][3]].push(students[i][0]);
-                }
-            }
-            delete subjects.subject;
-            for (const key of Object.keys(subjects)) {
-                if(key !== 'undefined') {
-                    message = `Number of students in ${key}: ${
-                        subjects[key].length
-                    }. List: ${subjects[key].join(', ')}`;
-                    console.log(message);
-                    messages.push(message);
-                }
-            }
-            res(messages);
-        });
+async function countStudents(path) {
+  try {
+    const csvFile = await fds.promises.readFile(path, {
+      encoding: 'utf8',
+    });
+    const csvData = csvFile.split('\n');
+    const csStudent = [];
+    const sweStudent = [];
+    for (let i = 1; i < csvData.length - 1; i += 1) {
+      const line = csvData[i].split(',');
+      if (line[3] === 'CS') {
+        csStudent.push(line[0].trim());
+      } else if (line[3] === 'SWE') {
+        sweStudent.push(line[0].trim());
+      }
+    }
+    const sum = csStudent.length + sweStudent.length;
+    console.log(`Number of students: ${sum}`);
+    console.log(`Number of students in CS: ${csStudent.length}. List: ${csStudent.toString().split(',').join(', ')}`);
+    console.log(`Number of students in SWE: ${sweStudent.length}. List: ${sweStudent.toString().split(',').join(', ')}`);
+  } catch (ex) {
+    throw new Error('Cannot load the database');
+  }
+}
 
-    };
-
-    return new Promise(promise);
-};
 module.exports = countStudents;
