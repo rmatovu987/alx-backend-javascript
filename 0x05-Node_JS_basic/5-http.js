@@ -15,7 +15,9 @@ async function countStudents() {
             const messages = [];
             let message;
             const content = dataCollected.toString().split('\n');
-            let students = content.filter((item) => item);
+            let students = content.filter((item) =>
+                item !== 'firstname,lastname,age,field'
+            );
             students = students.map((item) => item.split(','));
             const nStudents = students.length ? students.length - 1 : 0;
             message = `Number of students: ${nStudents}`;
@@ -30,7 +32,7 @@ async function countStudents() {
             }
             delete subjects.subject;
             for (const key of Object.keys(subjects)) {
-                if (key !== 'field') {
+                if(key !== 'undefined') {
                     message = `Number of students in ${key}: ${
                         subjects[key].length
                     }. List: ${subjects[key].join(', ')}`;
