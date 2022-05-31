@@ -4,7 +4,9 @@ const fs = require('fs');
 const countStudents = (path) => {
     const promise = (res, rej) => {
         fs.readFile(path, 'utf8', (err, dataCollected) => {
-            if (err) rej(Error('Cannot load the database'));
+            if (err) {
+                throw new Error('Cannot load the database');
+            }
             const messages = [];
             let message;
             const content = dataCollected.toString().split('\n');
