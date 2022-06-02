@@ -31,9 +31,9 @@ async function countStudents() {
 }
 
 const app = protocol.createServer((req, res) => {
-
   res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
+    res.statusCode = 200;
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     countStudents(path)
