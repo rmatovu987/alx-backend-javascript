@@ -31,13 +31,14 @@ async function countStudents() {
 }
 
 const app = protocol.createServer((req, res) => {
-  res.statusCode = 200;
+
   res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     countStudents(path)
       .then(({ csStudent, sweStudent }) => {
+        res.statusCode = 200;
         const sum = csStudent.length + sweStudent.length;
         res.write('This is the list of our students\n');
         res.write(`Number of students: ${sum}\n`);
@@ -46,6 +47,7 @@ const app = protocol.createServer((req, res) => {
         res.end();
       })
       .catch(() => {
+        res.statusCode = 404;
         res.end('Cannot load the database');
       });
   }
